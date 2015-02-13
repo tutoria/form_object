@@ -4,7 +4,7 @@ module FormObject
       def process(params, name)
         value = params[name] || params[name.to_s]
 
-        return value if value && (value.kind_of?(TrueClass) || value.kind_of?(FalseClass))
+        return value if value && [TrueClass, FalseClass].include?(value.class)
 
         value.present? && ["true", "yes", "1"].include?(value)
       end

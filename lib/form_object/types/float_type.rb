@@ -6,7 +6,7 @@ module FormObject
       def process(params, name)
         value = params[name] || params[name.to_s]
 
-        return value if value && value.kind_of?(Float)
+        return value if value && value.class == Float
 
         value.to_f if value.present?
       end
