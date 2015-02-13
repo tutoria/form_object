@@ -15,8 +15,8 @@ module FormObject
         minute = params["#{name}(5i)"]
         second = params["#{name}(6i)"]
 
-        if year && month && day && hour && minute && second
-          DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, second.to_i)
+        if [year, month, day, hour, minute, second].any?(&:present?)
+          DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, second.to_i) rescue nil
         end
       end
     end

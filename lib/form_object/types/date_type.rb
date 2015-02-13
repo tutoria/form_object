@@ -12,8 +12,8 @@ module FormObject
         month  = params["#{name}(2i)"]
         day    = params["#{name}(3i)"]
 
-        if year && month && day
-          Date.new(year.to_i, month.to_i, day.to_i)
+        if [year, month, day].any?(&:present?)
+          Date.new(year.to_i, month.to_i, day.to_i) rescue nil
         end
       end
     end

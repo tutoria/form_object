@@ -126,7 +126,7 @@ class FormObjectTest < Minitest::Test
   end
 
   def test_time_to_datetime_conversion
-    time = Time.new(1, 2, 3)
+    time = Time.new(2015, 2, 12, 1, 2, 3)
     form_object = TestFormObject.new({ "datetime" => time })
     assert_equal time.to_datetime, form_object.datetime
   end
@@ -135,7 +135,7 @@ class FormObjectTest < Minitest::Test
     params = {
       "date(1i)" => "2015",
       "date(2i)" => "2",
-      "date(3i)" => "12",
+      "date(3i)" => "12"
     }    
 
     form_object = TestFormObject.new(params)
@@ -143,7 +143,7 @@ class FormObjectTest < Minitest::Test
   end
 
   def test_time_assignment
-    time = Time.new(1, 2, 3)
+    time = Time.new(2015, 2, 12, 1, 2, 3)
     form_object = TestFormObject.new(time: time)
     assert_equal time, form_object.time
   end
@@ -162,13 +162,16 @@ class FormObjectTest < Minitest::Test
 
   def test_string_time_conversion
     params = {
+      "time(1i)" => "2015",
+      "time(2i)" => "2",
+      "time(3i)" => "12",
       "time(4i)" => 1,
       "time(5i)" => 2,
       "time(6i)" => 3      
     }    
 
     form_object = TestFormObject.new(params)
-    assert_equal Time.new(1, 2, 3), form_object.time
+    assert_equal Time.new(2015, 2, 12, 1, 2, 3), form_object.time
   end
 
   def test_boolean_assignment
