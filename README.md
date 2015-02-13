@@ -21,7 +21,7 @@ Where Event is defined as follows:
 class Event
   include FormObject::Mixin
 
-  field :datetime, :datetime
+  field :date, :date
   field :repetitions, :integer
 
   def initialize(form_params)

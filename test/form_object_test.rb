@@ -16,7 +16,14 @@ class TestFormObject
 
   field :datetime, :datetime
 
+  field :date, :date
+
   field :time, :time
+
+  field :boolean1, :boolean
+  field :boolean2, :boolean
+
+  field :string, :string
 
   def initialize(form_params)
     assign_fields(form_params)
@@ -72,6 +79,17 @@ class FormObjectTest < Minitest::Test
     assert_equal DateTime.new(2015, 2, 12, 1, 2, 3), form_object.datetime
   end
 
+  def test_string_date_conversion
+    params = {
+      "date(1i)" => 2015,
+      "date(2i)" => 2,
+      "date(3i)" => 12,
+    }    
+
+    form_object = TestFormObject.new(params)
+    assert_equal Date.new(2015, 2, 12), form_object.date
+  end
+
   def test_string_time_conversion
     params = {
       "time(4i)" => 1,
@@ -81,5 +99,26 @@ class FormObjectTest < Minitest::Test
 
     form_object = TestFormObject.new(params)
     assert_equal Time.new(1, 2, 3), form_object.time
+  end
+
+  def test_string_boolean_conversion
+    params = {
+      "boolean1" => "yes",
+      "boolean2" => "no"
+    }    
+
+    form_object = TestFormObject.new(params)
+    assert_equal true, form_object.boolean1
+    assert_equal false, form_object.boolean2
+  end
+
+  def test_string_conversion
+    params = {
+      "string" => "value",
+      "boolean2" => "no"
+    }    
+
+    form_object = TestFormObject.new(params)
+    assert_equal "value", form_object.string
   end
 end  

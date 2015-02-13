@@ -2,10 +2,13 @@ require 'active_support/concern'
 require 'active_support/deprecation'
 require 'active_support/core_ext/class'
 
+require_relative 'types/boolean_type'
 require_relative 'types/integer_type'
 require_relative 'types/float_type'
 require_relative 'types/datetime_type'
+require_relative 'types/date_type'
 require_relative 'types/time_type'
+require_relative 'types/string_type'
 
 module FormObject
   module Mixin
