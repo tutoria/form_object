@@ -2,9 +2,12 @@ module FormObject
   class BooleanType
     class << self
       def process(params, name)
-        value = params[name] || params[name.to_s]
+        value = params[name]
+        value = params[name.to_s] if value.nil?
 
-        return value if value && [TrueClass, FalseClass].include?(value.class)
+        return nil if value.nil?
+
+        return value if [TrueClass, FalseClass].include?(value.class)
 
         value.present? && ["true", "yes", "1"].include?(value)
       end

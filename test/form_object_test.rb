@@ -197,4 +197,22 @@ class FormObjectTest < Minitest::Test
     form_object = TestFormObject.new(params)
     assert_equal "value", form_object.string
   end
+
+  def test_serialize_attributes
+    params = {
+      "datetime(1i)" => "2015",
+      "datetime(2i)" => "2",
+      "datetime(3i)" => "12",
+      "datetime(4i)" => "1",
+      "datetime(5i)" => "2",
+      "datetime(6i)" => "3"      
+    }
+
+    attributes = {
+      "datetime" => DateTime.new(2015, 2, 12, 1, 2, 3)
+    }
+
+    form_object = TestFormObject.new(params)
+    assert_equal attributes, form_object.field_attributes
+  end
 end  
