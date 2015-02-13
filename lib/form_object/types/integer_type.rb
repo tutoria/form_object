@@ -5,6 +5,9 @@ module FormObject
     class << self
       def process(params, name)
         value = params[name] || params[name.to_s]
+
+        return value if value && value.kind_of?(Integer)
+
         value.to_i if value.present?
       end
     end

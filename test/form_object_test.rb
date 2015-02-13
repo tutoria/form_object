@@ -47,6 +47,11 @@ class FormObjectTest < Minitest::Test
     @test_form_object.accessor = 123
   end
 
+  def test_integer_assignment
+    form_object = TestFormObject.new(integer: 5)
+    assert_equal 5, form_object.integer    
+  end
+
   def test_string_integer_conversion
     params = {
       "integer" => "5"
@@ -54,6 +59,11 @@ class FormObjectTest < Minitest::Test
 
     form_object = TestFormObject.new(params)
     assert_equal 5, form_object.integer
+  end  
+
+  def test_float_assignment
+    form_object = TestFormObject.new(float: 1.234)
+    assert_equal 1.234, form_object.float
   end
 
   def test_string_float_conversion
@@ -63,6 +73,12 @@ class FormObjectTest < Minitest::Test
 
     form_object = TestFormObject.new(params)
     assert_equal 1.234, form_object.float
+  end
+
+  def test_datetime_assignment
+    datetime = DateTime.new(2015, 2, 12, 1, 2, 3)
+    form_object = TestFormObject.new(datetime: datetime)
+    assert_equal datetime, form_object.datetime
   end
 
   def test_string_datetime_conversion
@@ -79,6 +95,12 @@ class FormObjectTest < Minitest::Test
     assert_equal DateTime.new(2015, 2, 12, 1, 2, 3), form_object.datetime
   end
 
+  def test_date_assignment
+    date = DateTime.new(2015, 2, 12)
+    form_object = TestFormObject.new(date: date)
+    assert_equal date, form_object.date
+  end
+
   def test_string_date_conversion
     params = {
       "date(1i)" => 2015,
@@ -90,6 +112,12 @@ class FormObjectTest < Minitest::Test
     assert_equal Date.new(2015, 2, 12), form_object.date
   end
 
+  def test_time_assignment
+    time = Time.new(1, 2, 3)
+    form_object = TestFormObject.new(time: time)
+    assert_equal time, form_object.time
+  end
+
   def test_string_time_conversion
     params = {
       "time(4i)" => 1,
@@ -99,6 +127,12 @@ class FormObjectTest < Minitest::Test
 
     form_object = TestFormObject.new(params)
     assert_equal Time.new(1, 2, 3), form_object.time
+  end
+
+  def test_boolean_assignment
+    form_object = TestFormObject.new(boolean1: true, boolean2: false)
+    assert_equal true, form_object.boolean1
+    assert_equal false, form_object.boolean2
   end
 
   def test_string_boolean_conversion

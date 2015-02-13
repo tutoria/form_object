@@ -2,6 +2,10 @@ module FormObject
   class DateTimeType
     class << self
       def process(params, name)
+        value = params[name] || params[name.to_s]
+
+        return value if value && value.kind_of?(DateTime)
+
         year   = params["#{name}(1i)"]
         month  = params["#{name}(2i)"]
         day    = params["#{name}(3i)"]
