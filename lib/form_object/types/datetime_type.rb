@@ -16,7 +16,8 @@ module FormObject
         second = params["#{name}(6i)"]
 
         if [year, month, day, hour, minute, second].any?(&:present?)
-          DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, second.to_i) rescue nil
+          time_zone_offset = Time.zone.formatted_offset rescue '+00:00'
+          DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, second.to_i).change(offset: time_zone_offset) rescue nil
         end
       end
     end
