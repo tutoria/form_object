@@ -107,6 +107,23 @@ class FormObjectTest < Minitest::Test
     assert_equal DateTime.new(2015, 2, 12, 1, 2, 3), form_object.datetime
   end
 
+  def test_string_to_datetime_conversion
+    Time.zone = 'Berlin'
+
+    params = {
+      "datetime(1i)" => "2015",
+      "datetime(2i)" => "2",
+      "datetime(3i)" => "12",
+      "datetime(4i)" => "1",
+      "datetime(5i)" => "2",
+      "datetime(6i)" => "3"
+    }
+
+    form_object = TestFormObject.new(params)
+    assert_equal DateTime.new(2015, 2, 12, 1, 2, 3, '+01:00'), form_object.datetime
+    Time.zone = nil
+  end
+
   def test_date_assignment
     date = Date.new(2015, 2, 12)
     form_object = TestFormObject.new(date: date)
